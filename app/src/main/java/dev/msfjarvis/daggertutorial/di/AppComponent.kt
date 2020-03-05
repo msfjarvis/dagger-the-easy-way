@@ -3,6 +3,8 @@ package dev.msfjarvis.daggertutorial.di
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import dagger.Subcomponent
+import dev.msfjarvis.daggertutorial.MainActivity
 import javax.inject.Scope
 import javax.inject.Singleton
 
@@ -22,9 +24,17 @@ class CounterScreenModule {
     }
 }
 
+@CounterScreenScope
+@Subcomponent(modules = [CounterScreenModule::class])
+interface CounterScreenComponent {
+    fun inject(counterActivity: MainActivity)
+}
+
 @Singleton
 @Component(modules = [AppModule::class])
-interface AppComponent
+interface AppComponent {
+    fun counterScreenComponent(counterScreenModule: CounterScreenModule): CounterScreenComponent
+}
 
 @Module
 class AppModule {
