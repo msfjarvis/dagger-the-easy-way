@@ -2,7 +2,12 @@ package dev.msfjarvis.daggertutorial.di
 
 import dagger.Component
 import dagger.Module
+import javax.inject.Scope
 import javax.inject.Singleton
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class CounterScreenScope
 
 data class Counter(val name: String)
 class CounterPresenter(val counter: Counter)
