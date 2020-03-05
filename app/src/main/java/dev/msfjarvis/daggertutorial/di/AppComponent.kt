@@ -2,6 +2,7 @@ package dev.msfjarvis.daggertutorial.di
 
 import dagger.Component
 import dagger.Module
+import dagger.Provides
 import javax.inject.Scope
 import javax.inject.Singleton
 
@@ -11,6 +12,15 @@ annotation class CounterScreenScope
 
 data class Counter(val name: String)
 class CounterPresenter(val counter: Counter)
+
+@Module
+class CounterScreenModule {
+    @Provides
+    @CounterScreenScope
+    fun provideCounterPresenter(counter: Counter): CounterPresenter {
+        return CounterPresenter(counter)
+    }
+}
 
 @Singleton
 @Component(modules = [AppModule::class])
