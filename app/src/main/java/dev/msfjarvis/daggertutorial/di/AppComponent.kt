@@ -27,4 +27,11 @@ class CounterScreenModule {
 interface AppComponent
 
 @Module
-class AppModule
+class AppModule {
+    private var index = 0
+    @Provides
+    fun getCounter(): Counter {
+        index++
+        return Counter("Counter $index")
+    }
+}
