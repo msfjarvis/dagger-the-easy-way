@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         val counterScreenComponent = appComponent
-            .counterScreenComponent(CounterScreenModule())
+            .counterScreenComponentFactory
+            .create(CounterScreenModule())
         counterScreenComponent.inject(this)
         Log.d(TAG, presenter.counter.name)
     }

@@ -1,5 +1,6 @@
 package dev.msfjarvis.daggertutorial.di
 
+import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -28,12 +29,16 @@ class CounterScreenModule {
 @Subcomponent(modules = [CounterScreenModule::class])
 interface CounterScreenComponent {
     fun inject(counterActivity: MainActivity)
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(@BindsInstance counterScreenModule: CounterScreenModule): CounterScreenComponent
+    }
 }
 
 @Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
-    fun counterScreenComponent(counterScreenModule: CounterScreenModule): CounterScreenComponent
+    val counterScreenComponentFactory: CounterScreenComponent.Factory
 }
 
 @Module
